@@ -15,6 +15,7 @@ export const App = () => {
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth);
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
+  const [isActiveFormModal, setActiveFormModal] = useState(false);
   useEffect(() => {
     setFilteredList(filterListByMonth(list, currentMonth));
   }, [list, currentMonth]);
@@ -43,8 +44,14 @@ export const App = () => {
     <S.Container>
       <GlobalStyles />
       <S.Header>
-        <S.HeaderText>Finances</S.HeaderText>
+        <S.Nav>
+          <S.HeaderText>
+            <S.IconMoney />
+            HJ Finances
+          </S.HeaderText>
+        </S.Nav>
       </S.Header>
+      <S.HeaderBox></S.HeaderBox>
       <S.Body>
         <InfoArea
           currentMonth={currentMonth}
@@ -52,7 +59,14 @@ export const App = () => {
           income={income}
           expense={expense}
         />
-        <FormArea onAdd={handleAddItem} />
+        <FormArea
+          isActiveFormModal={isActiveFormModal}
+          setActiveFormModal={setActiveFormModal}
+          onAdd={handleAddItem}
+        />
+        <S.Button onClick={() => setActiveFormModal(true)}>
+          + Adicionar
+        </S.Button>
 
         <TableArea list={filteredList} />
       </S.Body>

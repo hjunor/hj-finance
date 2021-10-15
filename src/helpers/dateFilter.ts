@@ -5,6 +5,11 @@ export const getCurrentMonth = () => {
 
   return `${now.getFullYear()}-${now.getMonth() + 1}`;
 };
+export const getCurrentDate = () => {
+  let now = new Date();
+
+  return now.toISOString().slice(0, 10);
+};
 
 export const filterListByMonth = (list: Item[], date: string): Item[] => {
   let newList: Item[] = [];
