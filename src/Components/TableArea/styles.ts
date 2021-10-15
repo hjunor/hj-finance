@@ -19,3 +19,12 @@ export const TableHeadColumn = styled.th<{ width?: number }>`
 export const TableLine = styled.tr`
   background: transparent;
 `;
+
+export const Warning = styled.h1`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  height: 8rem;
+`;
