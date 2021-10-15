@@ -2,9 +2,10 @@ import React from "react";
 import { Item } from "../../types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import * as S from "./styles";
+import yup from "../../helpers/yup";
+
 type PropsFormArea = {
   onAdd: (item: Item) => void;
 };
@@ -15,15 +16,13 @@ type SingInFormData = {
   title: string;
   value: number;
 };
-const FormAddItem = yup
-  .object()
-  .shape({
-    date: yup.date().required("Data Obrigatório"),
-    category: yup.string().required("Categoria é obrigatório"),
-    title: yup.string().required("Tílulo é obrigatório"),
-    value: yup.number().positive().integer().required("Valor é obrigatório"),
-  })
-  .required();
+
+const FormAddItem = yup.object().shape({
+  date: yup.date().required("Data Obrigatório"),
+  category: yup.string().required("Categoria é obrigatório"),
+  title: yup.string().required("Tílulo é obrigatório"),
+  value: yup.number().positive().integer().min(0).required(),
+});
 const FormArea: React.FC<PropsFormArea> = ({ onAdd }) => {
   const {
     register,
@@ -32,7 +31,9 @@ const FormArea: React.FC<PropsFormArea> = ({ onAdd }) => {
   } = useForm({ resolver: yupResolver(FormAddItem) });
 
   const handleAddItem: SubmitHandler<SingInFormData> = async (values: Item) => {
-    onAdd(values);
+    if (Object.keys(errors).length === 0) {
+      onAdd(values);
+    }
     // console.log(values);
   };
   console.log(errors);
@@ -41,7 +42,7 @@ const FormArea: React.FC<PropsFormArea> = ({ onAdd }) => {
       <S.WrapperInput>
         <label htmlFor="data">Data</label>
         <input {...register("date")} type="date" />
-        <S.Error>{errors?.date && errors.date.message}</S.Error>
+        <S.Error>{errors?.date?.message && errors.date.message}</S.Error>
       </S.WrapperInput>
       <S.WrapperInput>
         <label htmlFor="food">Categoria</label>
@@ -51,19 +52,30 @@ const FormArea: React.FC<PropsFormArea> = ({ onAdd }) => {
           <option value="rent">Aluguel</option>
           <option value="salary">Sálario</option>
         </select>
-        <S.Error>{errors?.food && errors.food.message}</S.Error>
+        <S.Error>{errors?.food?.message && errors.food.message}</S.Error>
       </S.WrapperInput>
       <S.WrapperInput>
         <label htmlFor="title">Titulo</label>
         <input {...register("title")} id="title" type="text" />
-        <S.Error>{errors?.title && errors.title}</S.Error>
+        <S.Error>{errors?.title?.message && errors.title.message}</S.Error>
       </S.WrapperInput>
       <S.WrapperInput>
         <label htmlFor="money">Valor</label>
         <input {...register("value")} id="money" type="text" />
-        <S.Error>{errors?.value && errors.value.message}</S.Error>
+        <S.Error>{errors?.value?.message && errors.value.message}</S.Error>
       </S.WrapperInput>
-      <button type="submit" disabled={!(Object.keys(errors).length === 0)}>
+      <button
+        type="submit"
+        disabled={
+          !!errors["date"] ||
+          !!errors["food"] ||
+          !!errors["title"] ||
+          !!errors["value"] ||
+          !(Object.keys(errors).length === 0)
+            ? true
+            : false
+        }
+      >
         Adicionar
       </button>
     </S.Container>
