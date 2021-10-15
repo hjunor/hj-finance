@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import GlobalStyles from "./styles/global";
 import * as S from "./App.styles";
 
-import { Item, Category } from "./types";
+import { Item } from "./types";
 import { categories } from "./data/categories";
 import { items } from "./data/items";
 import { getCurrentMonth, filterListByMonth } from "./helpers/dateFilter";
