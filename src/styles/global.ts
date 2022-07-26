@@ -21,6 +21,15 @@ export default createGlobalStyle`
   font-size: 16px;
 }
 
+body{
+  --webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
   a{
     text-decoration: none;
     &:focus, &:hover, &:visited, &:link, &:active {

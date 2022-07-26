@@ -19,7 +19,7 @@ type SingInFormData = {
   value: number;
 };
 
-const FormAddItem = yup.object().shape({
+export const FormAddItem = yup.object().shape({
   date: yup
     .date()
     .typeError("O campo deve ser preenchido.")
@@ -34,7 +34,7 @@ const FormAddItem = yup.object().shape({
     .min(0)
     .required(),
 });
-const FormArea = ({
+export const FormArea = ({
   onAdd,
   setActiveFormModal,
   isActiveFormModal,
@@ -112,5 +112,3 @@ const FormArea = ({
     return <div></div>;
   }
 };
-
-export default FormArea;
