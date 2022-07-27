@@ -4,14 +4,18 @@ import { auth, signOut } from "../firebase/config";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { UserContext } from "../Context";
 import { useUser } from "./useUser";
+import {} from "react-use-cookie";
+import { useCookies } from "./useCookies";
+
 export const useAuth = () => {
   const { signedIn, setSignedIn, setUser } = useContext(UserContext);
   const { GetUserData } = useUser();
-
+  const { removeCookie } = useCookies();
   const navigate = useNavigate();
 
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   GetUserData(user?.user?.providerData[0]);
+
   auth.onAuthStateChanged((user) => {
     if (user) {
       setSignedIn(true);
@@ -25,7 +29,8 @@ export const useAuth = () => {
       .then(() => {
         setSignedIn(false);
         setUser(false);
-        navigate("/login");
+        removeCookie("user@login");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

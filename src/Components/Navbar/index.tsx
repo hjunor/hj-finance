@@ -21,7 +21,7 @@ export const Navbar = () => {
           {userData && (
             <>
               <span>{userData?.displayName}</span>
-              <img src={userData?.photoURL} alt="foto" />
+              <img src={userData?.photoURL}  alt="foto" />
               <button onClick={handlerLogout}>logout</button>
             </>
           )}

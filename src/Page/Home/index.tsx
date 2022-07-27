@@ -2,19 +2,21 @@ import { useState, useEffect } from "react";
 import * as S from "./styles";
 
 import { Item } from "../../types";
-import { items } from "../../data/items";
 import { getCurrentMonth, filterListByMonth } from "../../helpers/dateFilter";
 import { TableArea } from "../../Components/TableArea";
 import { formatList } from "../../utils/formatList";
 import { InfoArea } from "../../Components/InfoArea";
 import { FormArea } from "../../Components/FormArea";
+import { useStore } from "../../hook/useStore";
+import { useUser } from "../../hook/useUser";
 export const Home = () => {
-  const [list, setList] = useState(items);
   const [filteredList, setFilteredList] = useState<Item[]>([]);
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth);
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
   const [isActiveFormModal, setActiveFormModal] = useState(false);
+  const { getStore } = useStore();
+  const { list, userData } = useUser();
 
   useEffect(() => {
     setFilteredList(filterListByMonth(list, currentMonth));
@@ -25,9 +27,15 @@ export const Home = () => {
     setIncome(incomeCount);
     setExpense(expenseCount);
   }, [filteredList]);
+  useEffect(() => {
+    getStore("money", userData.uid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAddItem = (item: Item) => {
-    setList([...list, item]);
+    getStore("money", userData.uid);
+
+    // setList([...list, item]);
   };
 
   return (

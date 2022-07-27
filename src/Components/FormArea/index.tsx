@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./styles";
 import yup from "../../helpers/yup";
 import { getCurrentDate } from "../../helpers/dateFilter";
+import { useUser } from "../../hook/useUser";
+import { useStore } from "../../hook/useStore";
 
 type PropsFormArea = {
   onAdd: (item: Item) => void;
@@ -45,7 +47,8 @@ export const FormArea = ({
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(FormAddItem) });
-
+  const { userData } = useUser();
+  const { addStore } = useStore();
   function handleOutsideClick(event: any) {
     if (event.target === event.currentTarget) {
       setActiveFormModal(false);
@@ -54,7 +57,16 @@ export const FormArea = ({
 
   const handleAddItem: SubmitHandler<SingInFormData> = async (values: Item) => {
     if (Object.keys(errors).length === 0) {
-      onAdd(values);
+      await addStore(
+        "money",
+        {
+          date: new Date(values.date).toISOString(),
+          title: values.title,
+          value: values.value,
+          category: values.category,
+        },
+        userData?.uid
+      );
       reset();
       setActiveFormModal(false);
     }

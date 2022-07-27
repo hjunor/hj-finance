@@ -3,6 +3,8 @@ import { createContext, useState, ReactNode } from "react";
 interface UserContextData {
   userData: any;
   signedIn: Boolean;
+  list: any;
+  setList: (list: any) => void;
   setUser: (type: any) => void;
   setSignedIn: (type: any) => void;
 }
@@ -15,7 +17,7 @@ interface UserContextProps {
 export const UserProvider = ({ children }: UserContextProps) => {
   const [userData, setUser] = useState<Boolean>(false);
   const [signedIn, setSignedIn] = useState<Boolean>(false);
-
+  const [list, setList] = useState<any>([]);
   return (
     <UserContext.Provider
       value={{
@@ -23,6 +25,8 @@ export const UserProvider = ({ children }: UserContextProps) => {
         userData,
         signedIn,
         setSignedIn,
+        list,
+        setList,
       }}
     >
       {children}
