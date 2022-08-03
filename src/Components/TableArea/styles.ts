@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Table = styled.table`
   border-spacing: 0 0.5rem;
-
   width: 100%;
   background: transparent;
   border-radius: 0.25rem;

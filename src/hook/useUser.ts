@@ -3,14 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context";
 import { useCookies } from "./useCookies";
 
-// interface IUser {
-//   displayName: string;
-//   email: string;
-//   phoneNumber: string;
-//   photoURL: string;
-//   providerId: string;
-//   uid: string;
-// }
 export const useUser = () => {
   const { userData, setUser, setSignedIn, list, setList } =
     useContext(UserContext);

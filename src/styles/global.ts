@@ -1,8 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,900;1,100;1,300;1,500;1,700;1,900&display=swap');
 :root {
   --background: #f9f9f9;
   --fill: #f0f2f5;
@@ -28,6 +27,7 @@ body{
 button {
   cursor: pointer;
   border: none;
+  
 }
 
   a{
