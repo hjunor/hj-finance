@@ -24,6 +24,9 @@ export const Title = styled.h1`
     font-weight: bold;
     font-size: 2rem;
     color: var(--shape);
+    @media screen and (max-width: 600px) {
+      color: var(--blue);
+    }
   }
 `;
 
@@ -49,6 +52,8 @@ export const ContentRight = styled.div`
   @media screen and (max-width: 600px) {
     padding: 0;
     width: 100%;
+    height: 100%;
+    background: var(--shape);
   }
 `;
 
@@ -86,6 +91,7 @@ export const ContentLeft = styled.div`
     font-weight: bold;
   }
   @media screen and (max-width: 600px) {
+    display: none;
     width: 100%;
     background: var(--fill);
     padding: 0;

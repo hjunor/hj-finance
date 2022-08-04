@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Loading from "./Components/Loading";
 import { useAuth } from "./hook/useAuth";
 import { useCookies } from "./hook/useCookies";
@@ -12,6 +12,7 @@ export function Router() {
   const { signedIn, loading } = useAuth();
   const { setUser } = useUser();
   const { getCookie } = useCookies();
+  const navigate = useNavigate();
 
   const protectedRoute = (component: any) => {
     if (signedIn === true) {
@@ -34,6 +35,7 @@ export function Router() {
 
       if (user) {
         setUser(user);
+        navigate("/home");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

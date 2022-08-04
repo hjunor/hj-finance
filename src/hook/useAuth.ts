@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signOut } from "../firebase/config";
+import { auth, signOut, signIn } from "../firebase/config";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { UserContext } from "../Context";
 import { useUser } from "./useUser";
-import {} from "react-use-cookie";
 import { useCookies } from "./useCookies";
 
 export const useAuth = () => {
@@ -37,5 +36,5 @@ export const useAuth = () => {
       });
   }
 
-  return { signedIn, logout, signInWithGoogle, user, loading, error };
+  return { signedIn, logout, signInWithGoogle, signIn, user, loading, error };
 };
