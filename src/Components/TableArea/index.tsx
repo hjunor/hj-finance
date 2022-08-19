@@ -20,7 +20,9 @@ export const TableArea: React.FC<PropsTableArea> = ({ list }) => {
         </thead>
         <tbody>
           {list &&
-            list.map((item, index) => <TableItem item={item} index={index} />)}
+            list.map((item, index) => (
+              <TableItem key={index} item={item} index={index} />
+            ))}
         </tbody>
       </S.Table>
       {list.length === 0 && <S.Warning> ! Não há dados.</S.Warning>}
